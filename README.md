@@ -19,14 +19,14 @@ docker ps
 docker kill 3766c4ab331c
 
 
-aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 353381924064.dkr.ecr.us-west-2.amazonaws.com
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ZZZ.dkr.ecr.us-west-2.amazonaws.com
 
 aws ecr create-repository --repository-name hello-world --region us-west-2 --image-scanning-configuration scanOnPush=true --image-tag-mutability MUTABLE
 
-docker tag docker-image:test 353381924064.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
+docker tag docker-image:test ZZZ.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
 
 
-docker push 353381924064.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
+docker push ZZZ.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
 
 1. Create an execution role for the function, if you don't already have one. You need the Amazon Resource Name (ARN) of the role in the next step.
 
@@ -34,7 +34,7 @@ docker push 353381924064.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
 aws lambda create-function \
   --function-name hello-world \
   --package-type Image \
-  --code ImageUri=353381924064.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest \
-  --role arn:aws:iam::353381924064:role/lambda-ex
+  --code ImageUri=ZZZ.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest \
+  --role arn:aws:iam::ZZZ:role/lambda-ex
 
 aws lambda invoke --function-name hello-world response.json
